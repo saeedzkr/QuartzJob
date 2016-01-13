@@ -1,12 +1,13 @@
 package org.tamin.jobs;
 
+import config.TaminConfiguration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.tamin.config.TaminConfiguration;
+//import org.tamin.
 import org.tamin.model.dao.ChildUpdateDAOImpl;
-
+import org.tamin.model.utils.DAOResult;
 
 
 import java.util.List;
@@ -36,8 +37,8 @@ public class MessageNotifier implements Job {
         try {
 
 
-            long queueSize = TaminConfiguration.getConfiguration().getQueueSize();
-            //List<DAOResult> resultList = getChildUpdateDAOImpl().updateChildRefList(queueSize);
+            long queueSize = TaminConfiguration.getTaminConfiguration().getQueueSize();
+            List<DAOResult> resultList = getChildUpdateDAOImpl().updateChildRefList(queueSize);
 
             System.out.println("------------------------------- 001");
             logger.log(Level.INFO, "Job start");
