@@ -1,6 +1,0 @@
-org/tamin/model/dao/ChildUpdateDAO.class
-org/tamin/model/dao/ChildUpdateDAOImpl.class
-org/tamin/model/utils/DAOResult.class
-org/tamin/model/entity/Device.class
-org/tamin/model/entity/User.class
-org/tamin/model/dao/BaseDAOImpl.class
