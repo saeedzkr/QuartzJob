@@ -13,6 +13,7 @@
         <module>services</module>
         <module>Jobs</module>
         <module>model</module>
+        <module>Utils</module>
     </modules>
 
     <!--<repositories>-->

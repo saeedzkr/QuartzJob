@@ -7,9 +7,7 @@ import org.quartz.Trigger;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
-import org.tamin.jobs.MessageNotifier;
-import org.tamin.jobs.MessageNotifyListener;
-import org.tamin.model.utils.DAOResult;
+
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

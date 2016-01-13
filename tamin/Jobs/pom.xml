@@ -62,6 +62,12 @@
             <artifactId>TAMIN-MODEL</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>TAMIN</groupId>
+            <artifactId>TAMIN-UTILS</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -33,14 +33,19 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
 
             //todo create Queue base on count that has been set
             //todo read form parameters file
-            String query = "SELECT * FROM tbl_user" ;
 
-            List<User> lstUsr = (List<User>) getEntityManagerFactory().createEntityManager().createNativeQuery(query, User.class)
-                    .getResultList();
+            /*query for oracle*/
+            //String query = "SELECT t.*  FROM tbl_user t where t.status = 1 And ROWNUM <= 100;" ;
+
+            /*query for mysql*/
+            String query = String.format("SELECT t.*  FROM tbl_user t limit {0} ", size);
+
+            List<User> lstUsr =
+                    (List<User>) getEntityManagerFactory().createEntityManager().createNativeQuery(query, User.class)
+                            .getResultList();
 
 
-            for (int i=0; i<= lstUsr.size() ; i++)
-            {
+            for (int i = 0; i <= lstUsr.size(); i++) {
                 User usr = lstUsr.get(i);
                 usr.setUserid(Long.valueOf(2));
                 getEntityManagerFactory().createEntityManager().merge(usr);
@@ -48,9 +53,7 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
 
             DAOResult result = new DAOResult(DAOResult.PERSIST_DONE, "");
             resultList.add(result);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             DAOResult result = new DAOResult(DAOResult.PERSIST_FAILED, "");
             resultList.add(result);
         }

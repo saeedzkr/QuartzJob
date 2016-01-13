@@ -15,6 +15,9 @@
             <element id="module-output" name="TAMIN-WEB" />
           </element>
           <element id="directory" name="lib">
+            <element id="archive" name="TAMIN-WEB-0.0.1.jar">
+              <element id="module-output" name="TAMIN-WEB" />
+            </element>
             <element id="archive" name="TAMIN-Service-0.0.1.jar">
               <element id="module-output" name="TAMIN-Service" />
             </element>
@@ -40,6 +43,9 @@
             <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.1" />
             <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
             <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />
+            <element id="archive" name="TAMIN-UTILS-0.0.1.jar">
+              <element id="module-output" name="TAMIN-UTILS" />
+            </element>
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2.1" />
             <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.10" />
             <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.10" />
@@ -75,7 +81,7 @@
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="D:\crusader\projects\tamin\tamin\WebConsole\target/MANIFEST.MF" />
+          <element id="file-copy" path="D:\crusader\projects\git project\QuartzJob\tamin\WebConsole\target/MANIFEST.MF" />
         </element>
         <element id="javaee-facet-resources" facet="TAMIN-WEB/web/TAMIN-WEB" />
       </root>
@@ -173,6 +179,7 @@
         <module name="TAMIN-MODEL" />
         <module name="TAMIN-Service" />
         <module name="TAMIN-Service-Console" />
+        <module name="TAMIN-UTILS" />
         <module name="TAMIN-WEB" />
       </profile>
     </annotationProcessing>
@@ -182,6 +189,7 @@
       <module name="TAMIN-MODEL" target="1.7" />
       <module name="TAMIN-Service" target="1.7" />
       <module name="TAMIN-Service-Console" target="1.5" />
+      <module name="TAMIN-UTILS" target="1.7" />
       <module name="TAMIN-WEB" target="1.7" />
     </bytecodeTargetLevel>
   </component>
@@ -373,6 +381,7 @@
       <module fileurl="file://$PROJECT_DIR$/Jobs/TAMIN-JOBS.iml" filepath="$PROJECT_DIR$/Jobs/TAMIN-JOBS.iml" />
       <module fileurl="file://$PROJECT_DIR$/model/TAMIN-MODEL.iml" filepath="$PROJECT_DIR$/model/TAMIN-MODEL.iml" />
       <module fileurl="file://$PROJECT_DIR$/services/TAMIN-Service.iml" filepath="$PROJECT_DIR$/services/TAMIN-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" filepath="$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebConsole/TAMIN-WEB.iml" filepath="$PROJECT_DIR$/WebConsole/TAMIN-WEB.iml" />
     </modules>
   </component>

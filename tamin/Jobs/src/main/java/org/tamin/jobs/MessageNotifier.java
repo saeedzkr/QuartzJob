@@ -4,9 +4,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import org.tamin.config.TaminConfiguration;
 import org.tamin.model.dao.ChildUpdateDAOImpl;
-import org.tamin.model.utils.DAOResult;
+
+
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class MessageNotifier implements Job {
 
     private ChildUpdateDAOImpl childUpdateDAOImpl;
 
+
     public void setChildUpdateDAOImpl(ChildUpdateDAOImpl ChildUpdateDAOImpl) {
         childUpdateDAOImpl = ChildUpdateDAOImpl;
     }
@@ -28,26 +30,24 @@ public class MessageNotifier implements Job {
     }
 
 
-    public void execute(JobExecutionContext jobExecutionContext)  {
-        try
-        {
 
 
-//            List<DAOResult> resultList = getChildUpdateDAOImpl().updateChildRefList(1000);
-//
-//            jobExecutionContext.getJobDetail().getJobDataMap().put("result" , resultList);
+    public void execute(JobExecutionContext jobExecutionContext) {
+        try {
 
+
+            long queueSize = TaminConfiguration.getConfiguration().getQueueSize();
+            //List<DAOResult> resultList = getChildUpdateDAOImpl().updateChildRefList(queueSize);
 
             System.out.println("------------------------------- 001");
             logger.log(Level.INFO, "Job start");
 
-        }
-        catch (Exception ex)
-        {
-            logger.log(Level.INFO , ex.getMessage());
+        } catch (Exception ex) {
+            logger.log(Level.INFO, ex.getMessage());
         }
 
     }
+
 
 
 }

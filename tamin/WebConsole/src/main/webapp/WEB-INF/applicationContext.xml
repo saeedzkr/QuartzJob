@@ -10,7 +10,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
     <bean id="MessageNotifier" class="org.tamin.jobs.MessageNotifier">
         <property name="ChildUpdateDAOImpl" ref="ChildUpdateDAOImpl"/>
-
     </bean>
 
 
