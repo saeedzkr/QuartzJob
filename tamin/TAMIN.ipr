@@ -382,6 +382,7 @@
       <module fileurl="file://$PROJECT_DIR$/model/TAMIN-MODEL.iml" filepath="$PROJECT_DIR$/model/TAMIN-MODEL.iml" />
       <module fileurl="file://$PROJECT_DIR$/services/TAMIN-Service.iml" filepath="$PROJECT_DIR$/services/TAMIN-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" filepath="$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" filepath="$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebConsole/TAMIN-WEB.iml" filepath="$PROJECT_DIR$/WebConsole/TAMIN-WEB.iml" />
     </modules>
   </component>
