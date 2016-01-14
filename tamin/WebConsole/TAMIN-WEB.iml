@@ -470,6 +470,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="TAMIN-UTILS" />
     <orderEntry type="module" module-name="TAMIN-Service" />
     <orderEntry type="module" module-name="TAMIN-MODEL" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:4.3.10.Final" level="project" />
