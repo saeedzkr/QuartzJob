@@ -40,6 +40,25 @@ public class TaminConfiguration {
 
     }
 
+    public void setQueueSize(long queueSize) {
+
+        Properties prop = new Properties();
+        if (prop != null) {
+            try {
+
+                FileOutputStream outfile = new FileOutputStream("config.properties");
+                prop.setProperty("queueSize", String.valueOf(queueSize));
+                prop.store(outfile, null);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+
+        }
+
+    }
+
     private Properties readfile() {
         Properties properties = new Properties();
         OutputStream output = null;

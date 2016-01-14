@@ -7,6 +7,7 @@ import org.quartz.Trigger;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.tamin.config.TaminConfiguration;
 
 
 import javax.faces.application.FacesMessage;
@@ -27,7 +28,7 @@ import java.util.List;
 public class QueueMonitor implements Serializable {
 
     private Boolean activeJob;
-    private long QueueSize;
+    private long queueSize;
     private String activeConnection;
     private String jobName;
     private long doneProcessSize;
@@ -52,11 +53,11 @@ public class QueueMonitor implements Serializable {
     }
 
     public long getQueueSize() {
-        return QueueSize;
+        return queueSize;
     }
 
     public void setQueueSize(long queueSize) {
-        QueueSize = queueSize;
+        queueSize = queueSize;
     }
 
     public String getActiveConnection() {
@@ -141,7 +142,7 @@ public class QueueMonitor implements Serializable {
                     this.currentCycle = triggers.get(0).getPreviousFireTime().getTime(); //- triggers.get(0).getNextFireTime().getTime()) / 10;
                     this.currentCycleTime = triggers.get(0).getPreviousFireTime().toString();
                     this.nextCycleTime = triggers.get(0).getNextFireTime().toString();
-
+                    this.queueSize = TaminConfiguration.getConfiguration().getQueueSize();
                     this.activeJob = scheduler.isShutdown();
 
                     //quartzJobList.add(new QuartzJob(jobName, jobGroup, nextFireTime));
@@ -157,6 +158,10 @@ public class QueueMonitor implements Serializable {
             System.out.println(ex.getMessage());
         }
 
+    }
+
+    public void updateQueueSize() {
+        TaminConfiguration.getConfiguration().setQueueSize(queueSize);
     }
 
 
