@@ -1,9 +1,8 @@
 package org.tamin.config;
 
 import javax.servlet.ServletContext;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.URL;
 import java.util.Properties;
 
 /**
@@ -11,14 +10,16 @@ import java.util.Properties;
  */
 public class TaminConfiguration {
 
-    private TaminConfiguration () {
+    private TaminConfiguration() {
     }
 
-    private static TaminConfiguration  _Configuration;
+    private static TaminConfiguration _Configuration;
 
-    public static TaminConfiguration  getConfiguration() {
+    private static final String SERVLET_ADDRESS= "http://127.0.0.1:8085/config";
+
+    public static TaminConfiguration getConfiguration() {
         if (_Configuration == null) {
-            _Configuration = new TaminConfiguration ();
+            _Configuration = new TaminConfiguration();
             return _Configuration;
         } else {
             return _Configuration;
@@ -28,32 +29,38 @@ public class TaminConfiguration {
 
     public long getQueueSize() {
 
-        Properties prop  = readfile();
-        if(prop!= null)
-        {
+        Properties prop = readfile();
+        if (prop != null) {
             return Long.parseLong(prop.getProperty("queueSize"));
-        }
-        else
-        {
-            return  0;
+        } else {
+            return 0;
         }
 
     }
 
     public void setQueueSize(long queueSize) {
 
-        Properties prop = new Properties();
-        if (prop != null) {
+        FileOutputStream outfile = null;
+        try {
+            Properties prop = new Properties();
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            prop.load(classLoader.getResourceAsStream("/WEB-INF/config.properties"));
+            outfile = new FileOutputStream("/WEB-INF/config.properties");
+            prop.setProperty("queueSize", String.valueOf(queueSize));
+            prop.store(outfile, null);
+            outfile.close();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
             try {
-
-                FileOutputStream outfile = new FileOutputStream("config.properties");
-                prop.setProperty("queueSize", String.valueOf(queueSize));
-                prop.store(outfile, null);
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                outfile.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
-        } else {
+
 
         }
 
@@ -64,16 +71,19 @@ public class TaminConfiguration {
         OutputStream output = null;
 
         try {
+            URL url = new URL( SERVLET_ADDRESS);
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+            //line = in.readLine();
+
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
-            properties.load(classLoader.getResourceAsStream("config.properties"));
+            properties.load(classLoader.getResourceAsStream("/WEB-INF/config.properties"));
 
             return properties;
         } catch (IOException io) {
             io.printStackTrace();
             System.out.println(io.getMessage());
-        } finally
-        {
+        } finally {
             if (output != null) {
                 try {
                     output.close();

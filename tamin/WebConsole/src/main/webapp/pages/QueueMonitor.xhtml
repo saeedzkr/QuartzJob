@@ -21,28 +21,32 @@
     </script>
 </h:head>
 <h:body onload="#{queueMonitor.calculateJob()}">
-    <div style="text-align: center; ">
-        <f:view>
-            <h:outputLabel id="lblJob" value="Tamin Job monitor panel"/>
+    <h:form id="formQueue">
+        <div style="text-align: center; ">
+            <f:view>
+                <h:outputLabel id="lblJob" value="Tamin Job monitor panel"/>
 
-            <h3> Job is Shutdown :#{queueMonitor.activeJob}</h3>
+                <h3> Job is Shutdown :#{queueMonitor.activeJob}</h3>
 
-            <h:inputText id="size" value="#{queueMonitor.queueSize}"/>
-            <h:commandButton value="submit" type="submit" action="#{queueMonitor.updateQueueSize}"/>
+                <h3> current qeueSize is : #{queueMonitor.currentQueueSize}</h3>
+                <h:inputText id="size" value="#{queueMonitor.newQueueSize}"/>
+                <h:commandButton value="submit" type="submit" action="#{queueMonitor.updateQueueSize()}"/>
 
-            <h3> current cycle number is :#{queueMonitor.currentCycle}</h3>
+                <h3> current cycle number is :#{queueMonitor.currentCycle}</h3>
 
-            <h3> current cycle Time is :#{queueMonitor.currentCycleTime}</h3>
+                <h3> current cycle Time is :#{queueMonitor.currentCycleTime}</h3>
 
-            <h3> Next cycle Time is :#{queueMonitor.nextCycleTime}</h3>
+                <h3> Next cycle Time is :#{queueMonitor.nextCycleTime}</h3>
 
-            <h3> Active current Queue count is :#{queueMonitor.queueSize}</h3>
+                <h3> Active current Queue count is :#{queueMonitor.queueSize}</h3>
 
-            <h3> Sucessfull persist items is :#{queueMonitor.doneProcessSize}</h3>
+                <h3> Sucessfull persist items is :#{queueMonitor.doneProcessSize}</h3>
 
-            <h3> Failed persist items is :#{queueMonitor.failedProcessSize}</h3>
+                <h3> Failed persist items is :#{queueMonitor.failedProcessSize}</h3>
 
-        </f:view>
-    </div>
+            </f:view>
+
+        </div>
+    </h:form>
 </h:body>
 </html>

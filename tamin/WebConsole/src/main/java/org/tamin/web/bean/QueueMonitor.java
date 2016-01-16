@@ -10,15 +10,23 @@ import org.quartz.impl.matchers.GroupMatcher;
 import org.tamin.config.TaminConfiguration;
 
 
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import java.awt.event.ActionEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by sector7 on 1/10/16.
@@ -36,6 +44,8 @@ public class QueueMonitor implements Serializable {
     private long currentCycle;
     private String nextCycleTime;
     private String currentCycleTime;
+    private long currentQueueSize;
+    private long newQueueSize;
 
     private Scheduler scheduler;
 
@@ -117,6 +127,22 @@ public class QueueMonitor implements Serializable {
         this.currentCycleTime = currentCycleTime;
     }
 
+    public long getCurrentQueueSize() {
+        return currentQueueSize;
+    }
+
+    public void setCurrentQueueSize(long currentQueueSize) {
+        this.currentQueueSize = currentQueueSize;
+    }
+
+    public long getNewQueueSize() {
+        return newQueueSize;
+    }
+
+    public void setNewQueueSize(long newQueueSize) {
+        this.newQueueSize = newQueueSize;
+    }
+
     public void calculateJob() throws SchedulerException {
         try {
             ServletContext servletContext =
@@ -139,10 +165,10 @@ public class QueueMonitor implements Serializable {
 
                     this.doneProcessSize = succeed;
                     this.failedProcessSize = failed;
-                    this.currentCycle = triggers.get(0).getPreviousFireTime().getTime(); //- triggers.get(0).getNextFireTime().getTime()) / 10;
+                    //this.currentCycle = triggers.get(0).getPreviousFireTime().getTime(); //- triggers.get(0).getNextFireTime().getTime()) / 10;
                     this.currentCycleTime = triggers.get(0).getPreviousFireTime().toString();
                     this.nextCycleTime = triggers.get(0).getNextFireTime().toString();
-                    this.queueSize = TaminConfiguration.getConfiguration().getQueueSize();
+                    this.currentQueueSize = TaminConfiguration.getConfiguration().getQueueSize();
                     this.activeJob = scheduler.isShutdown();
 
                     //quartzJobList.add(new QuartzJob(jobName, jobGroup, nextFireTime));
@@ -160,8 +186,50 @@ public class QueueMonitor implements Serializable {
 
     }
 
-    public void updateQueueSize() {
-        TaminConfiguration.getConfiguration().setQueueSize(queueSize);
+    public void updateQueueSize()
+    {
+
+        try {
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            UIInput foundComponent = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("size");
+//            long size = (long) foundComponent.getSubmittedValue();
+            //TaminConfiguration.getConfiguration().setQueueSize(newQueueSize);
+
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            Properties properties = new Properties();
+// ...
+            properties.load(externalContext.getResourceAsStream("/WEB-INF/config.properties"));
+            FileOutputStream outfile = null;
+            try {
+                Properties prop = new Properties();
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                prop.load(classLoader.getResourceAsStream("config.properties"));
+                outfile = new FileOutputStream("config.properties");
+                prop.setProperty("queueSize", String.valueOf(queueSize));
+                prop.store(outfile, null);
+                outfile.close();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+            } finally {
+                try {
+                    outfile.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+
     }
 
 

@@ -81,7 +81,7 @@
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="D:\crusader\projects\git project\QuartzJob\tamin\WebConsole\target/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/WebConsole/target/TAMIN-WEB-0.0.1/META-INF/MANIFEST.MF" />
         </element>
         <element id="javaee-facet-resources" facet="TAMIN-WEB/web/TAMIN-WEB" />
       </root>
@@ -148,6 +148,9 @@
             <element id="file-copy" path="$MAVEN_REPOSITORY$/c3p0/c3p0/0.9.1.1/c3p0-0.9.1.1.jar" />
             <element id="file-copy" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.6.1/slf4j-api-1.6.1.jar" />
             <element id="file-copy" path="$MAVEN_REPOSITORY$/javax/transaction/jta/1.1/jta-1.1.jar" />
+            <element id="archive" name="TAMIN-UTILS-0.0.1.jar">
+              <element id="module-output" name="TAMIN-UTILS" />
+            </element>
             <element id="archive" name="TAMIN-Service-0.0.1.jar">
               <element id="module-output" name="TAMIN-Service" />
             </element>
@@ -175,12 +178,42 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="TAMIN-JOBS" />
-        <module name="TAMIN-MODEL" />
-        <module name="TAMIN-Service" />
         <module name="TAMIN-Service-Console" />
+      </profile>
+      <profile default="false" name="Annotation profile for TAMIN-UTILS" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
         <module name="TAMIN-UTILS" />
+      </profile>
+      <profile default="false" name="Annotation profile for TAMIN-JOBS" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TAMIN-JOBS" />
+      </profile>
+      <profile default="false" name="Annotation profile for TAMIN-WEB" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
         <module name="TAMIN-WEB" />
+      </profile>
+      <profile default="false" name="Annotation profile for TAMIN-MODEL" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TAMIN-MODEL" />
+      </profile>
+      <profile default="false" name="Annotation profile for TAMIN-Service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="TAMIN-Service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -382,13 +415,12 @@
       <module fileurl="file://$PROJECT_DIR$/model/TAMIN-MODEL.iml" filepath="$PROJECT_DIR$/model/TAMIN-MODEL.iml" />
       <module fileurl="file://$PROJECT_DIR$/services/TAMIN-Service.iml" filepath="$PROJECT_DIR$/services/TAMIN-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" filepath="$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" filepath="$PROJECT_DIR$/Utils/TAMIN-UTILS.iml" />
       <module fileurl="file://$PROJECT_DIR$/WebConsole/TAMIN-WEB.iml" filepath="$PROJECT_DIR$/WebConsole/TAMIN-WEB.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" />
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs="" />
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Maven: antlr:antlr:2.7.7">
@@ -932,3 +964,4 @@
     </library>
   </component>
 </project>
+
