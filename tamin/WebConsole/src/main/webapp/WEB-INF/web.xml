@@ -84,14 +84,7 @@
         <servlet-name>Jersey RESTful Application</servlet-name>
         <url-pattern>/url/*</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>ConfigurationServlet</servlet-name>
-        <servlet-class>org.tamin.web.Controller.ConfigController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConfigurationServlet</servlet-name>
-        <url-pattern>/config</url-pattern>
-    </servlet-mapping>
+
     <!--<servlet>-->
         <!--<servlet-name>ServiceHanlder</servlet-name>-->
         <!--<servlet-class>-->

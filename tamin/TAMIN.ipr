@@ -81,7 +81,7 @@
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/WebConsole/target/TAMIN-WEB-0.0.1/META-INF/MANIFEST.MF" />
+          <element id="file-copy" path="D:\crusader\projects\git project\QuartzJob\tamin\WebConsole\target/MANIFEST.MF" />
         </element>
         <element id="javaee-facet-resources" facet="TAMIN-WEB/web/TAMIN-WEB" />
       </root>
@@ -178,42 +178,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="TAMIN-Service-Console" />
-      </profile>
-      <profile default="false" name="Annotation profile for TAMIN-UTILS" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="TAMIN-UTILS" />
-      </profile>
-      <profile default="false" name="Annotation profile for TAMIN-JOBS" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="TAMIN-JOBS" />
-      </profile>
-      <profile default="false" name="Annotation profile for TAMIN-WEB" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="TAMIN-WEB" />
-      </profile>
-      <profile default="false" name="Annotation profile for TAMIN-MODEL" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="TAMIN-MODEL" />
-      </profile>
-      <profile default="false" name="Annotation profile for TAMIN-Service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="TAMIN-Service" />
+        <module name="TAMIN-Service-Console" />
+        <module name="TAMIN-UTILS" />
+        <module name="TAMIN-WEB" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -964,4 +934,3 @@
     </library>
   </component>
 </project>
-

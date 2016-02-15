@@ -1,6 +1,5 @@
 package org.tamin.model.dao;
 
-import org.tamin.model.entity.User;
 import org.tamin.model.utils.DAOResult;
 
 import javax.persistence.EntityManagerFactory;
@@ -40,16 +39,16 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
             /*query for mysql*/
             String query = String.format("SELECT t.*  FROM tbl_user t limit {0} ", size);
 
-            List<User> lstUsr =
-                    (List<User>) getEntityManagerFactory().createEntityManager().createNativeQuery(query, User.class)
-                            .getResultList();
-
-
-            for (int i = 0; i <= lstUsr.size(); i++) {
-                User usr = lstUsr.get(i);
-                usr.setUserid(Long.valueOf(2));
-                getEntityManagerFactory().createEntityManager().merge(usr);
-            }
+//            List<User> lstUsr =
+//                    (List<User>) getEntityManagerFactory().createEntityManager().createNativeQuery(query, User.class)
+//                            .getResultList();
+//
+//
+//            for (int i = 0; i <= lstUsr.size(); i++) {
+//                User usr = lstUsr.get(i);
+//                usr.setUserid(Long.valueOf(2));
+//                getEntityManagerFactory().createEntityManager().merge(usr);
+//            }
 
             DAOResult result = new DAOResult(DAOResult.PERSIST_DONE, "");
             resultList.add(result);

@@ -144,6 +144,8 @@ public class QueueMonitor implements Serializable {
     }
 
     public void calculateJob() throws SchedulerException {
+
+
         try {
             ServletContext servletContext =
                     (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -182,51 +184,6 @@ public class QueueMonitor implements Serializable {
             msg.setDetail(ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(ex.getMessage(), msg);
             System.out.println(ex.getMessage());
-        }
-
-    }
-
-    public void updateQueueSize()
-    {
-
-        try {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            UIInput foundComponent = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent("size");
-//            long size = (long) foundComponent.getSubmittedValue();
-            //TaminConfiguration.getConfiguration().setQueueSize(newQueueSize);
-
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            Properties properties = new Properties();
-// ...
-            properties.load(externalContext.getResourceAsStream("/WEB-INF/config.properties"));
-            FileOutputStream outfile = null;
-            try {
-                Properties prop = new Properties();
-                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                prop.load(classLoader.getResourceAsStream("config.properties"));
-                outfile = new FileOutputStream("config.properties");
-                prop.setProperty("queueSize", String.valueOf(queueSize));
-                prop.store(outfile, null);
-                outfile.close();
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(e.getMessage());
-            } finally {
-                try {
-                    outfile.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-
-
-            }
-
-        }
-        catch (Exception ex)
-        {
-
         }
 
 
