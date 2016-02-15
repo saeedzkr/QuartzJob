@@ -36,8 +36,8 @@ public class MessageNotifier implements Job {
     public void execute(JobExecutionContext jobExecutionContext) {
         try {
 
-//            long queueSize = TaminConfiguration.getConfiguration().getQueueSize();
-            //List<DAOResult> resultList = getChildUpdateDAOImpl().updateChildRefList(queueSize);
+            //   long queueSize = TaminConfiguration.getConfiguration().getQueueSize();
+            getChildUpdateDAOImpl().updateChildRefList(0);
 
             System.out.println("------------------------------- 001");
             logger.log(Level.INFO, "Job start and queue size is ");
