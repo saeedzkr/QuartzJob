@@ -10,6 +10,8 @@ import org.tamin.model.dao.ChildUpdateDAOImpl;
 import org.tamin.model.utils.DAOResult;
 
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 
 /**
@@ -31,16 +33,29 @@ public class MessageNotifier implements Job {
     }
 
 
+    private static final EntityManagerFactory entityManagerFactory;
 
+    static {
+        entityManagerFactory = Persistence.createEntityManagerFactory("MyConnection");
+    }
+
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
+    }
 
     public void execute(JobExecutionContext jobExecutionContext) {
         try {
 
             //   long queueSize = TaminConfiguration.getConfiguration().getQueueSize();
-            getChildUpdateDAOImpl().updateChildRefList(0);
+            //getChildUpdateDAOImpl().updateChildRefList(0);
+
+            String query = String.format("SELECT t.*  FROM ibsfx01 t ", 10);
+
+            List lst =
+                    getEntityManagerFactory().createEntityManager().createNativeQuery(query).getResultList();
 
             System.out.println("------------------------------- 001");
-            logger.log(Level.INFO, "Job start and queue size is ");
+            logger.log(Level.INFO, "Job start and queue size is " + lst.size());
 
 
         } catch (Exception ex) {
