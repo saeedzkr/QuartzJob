@@ -12,6 +12,8 @@ import org.quartz.JobExecutionContext;
 //import org.tamin.
 import org.tamin.model.dao.ChildUpdateDAO;
 import org.tamin.model.dao.ChildUpdateDAOImpl;
+import org.tamin.model.dao.InboundDAOImpl;
+import org.tamin.model.dao.OutboundDAOImpl;
 import org.tamin.model.utils.DAOResult;
 
 
@@ -27,30 +29,42 @@ public class MessageNotifier extends QuartzJobBean {
     final Logger logger = Logger.getLogger("JobLogger");
 
 
-    private ChildUpdateDAOImpl childUpdateDAOImpl;
+    private OutboundDAOImpl outboundDAOImpl;
+    private InboundDAOImpl inboundDAOImpl;
 
-
-
-    public ChildUpdateDAOImpl getChildUpdateDAOImpl() {
-        return childUpdateDAOImpl;
+    public OutboundDAOImpl getOutboundDAOImpl() {
+        return outboundDAOImpl;
     }
 
-    public void setChildUpdateDAOImpl(ChildUpdateDAOImpl childUpdateDAOImpl) {
-        this.childUpdateDAOImpl = childUpdateDAOImpl;
+    public void setOutboundDAOImpl(OutboundDAOImpl outboundDAOImpl) {
+        this.outboundDAOImpl = outboundDAOImpl;
+    }
+
+    public InboundDAOImpl getInboundDAOImpl() {
+        return inboundDAOImpl;
+    }
+
+    public void setInboundDAOImpl(InboundDAOImpl inboundDAOImpl) {
+        this.inboundDAOImpl = inboundDAOImpl;
     }
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         try {
 
-            List<DAOResult> result = childUpdateDAOImpl.updateChildRefList(10);
+            //List<DAOResult> result = childUpdateDAOImpl.updateChildRefList(10);
 
+            System.out.println("------------------------------- 001");
+
+            outboundDAOImpl.listOutbound();
 
             System.out.println("------------------------------- 001");
             //logger.log(Level.INFO, "Job start and queue size is " + result.size());
 
 
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
             logger.log(Level.INFO, ex.getMessage());
         }
     }

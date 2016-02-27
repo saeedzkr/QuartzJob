@@ -5,40 +5,56 @@
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-    <bean id="ChildUpdateDAOImpl" class="org.tamin.model.dao.ChildUpdateDAOImpl" scope="singleton">
-        <property name="ConnectionManager" ref="ConnectionManager"/>
-        <property name="maxSize" value="1000"/>
+    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection"  scope="singleton" >
+        <property name="properties">
+            <props>
+                <prop key="gl.out.connection.jdbc.driver.class">${gl.out.connection.jdbc.driver.class}</prop>
+                <prop key="gl.out.connection.jdbc.url">${gl.out.connection.jdbc.url}</prop>
+                <prop key="gl.out.connection.jdbc.username">${gl.out.connection.jdbc.username}</prop>
+                <prop key="gl.out.connection.jdbc.password">${gl.out.connection.jdbc.password}</prop>
+                <prop key="gl.out.connection.jdbc.port">${gl.out.connection.jdbc.port}</prop>
+            </props>
+        </property>
     </bean>
-
-    <bean id="ConnectionManager" class="org.tamin.model.dao.ConnectionManager" scope="singleton">
-        <property name="dbconfig">
-            <map>
-                <entry key="class">
-                    <value>${gl.connection.jdbc.driver.class}</value>
-                </entry>
-                <entry key="url">
-                    <value>${gl.connection.url}</value>
-                </entry>
-                <entry key="username">
-                    <value>${gl.connection.username}</value>
-                </entry>
-                <entry key="password">
-                    <value>${gl.connection.password}</value>
-                </entry>
-                <entry key="port">
-                    <value>${gl.connection.port}</value>
-                </entry>
-            </map>
+    <bean id="InboundConnection" class="org.tamin.model.utils.InboundConnection" scope="singleton">
+        <property name="properties">
+            <props>
+                <prop key="gl.in.connection.jdbc.driver.class">${gl.in.connection.jdbc.driver.class}</prop>
+                <prop key="gl.in.connection.jdbc.url">${gl.in.connection.jdbc.url}</prop>
+                <prop key="gl.in.connection.jdbc.username">${gl.in.connection.jdbc.username}</prop>
+                <prop key="gl.in.connection.jdbc.password">${gl.in.connection.jdbc.password}</prop>
+                <prop key="gl.in.connection.jdbc.port">${gl.in.connection.jdbc.port}</prop>
+            </props>
         </property>
     </bean>
 
 
+    <bean id="ChildUpdateDAOImpl" class="org.tamin.model.dao.ChildUpdateDAOImpl" scope="singleton">
+        <property name="maxSize" value="1000"/>
+    </bean>
+
+
+    <bean id="OutboundDAOImpl" class="org.tamin.model.dao.OutboundDAOImpl" scope="singleton">
+        <property name="OutboundConnection" ref="OutboundConnection"/>
+        <property name="maxSize" value="1000"/>
+
+
+    </bean>
+
+    <bean id="InboundDAOImpl" class="org.tamin.model.dao.InboundDAOImpl" scope="singleton">
+        <property name="InboundConnection" ref="InboundConnection"/>
+        <property name="maxSize" value="1000"/>
+
+    </bean>
+
+
     <!-- Spring Quartz Scheduler job -->
-    <bean name="schedulerJob" class="org.springframework.scheduling.quartz.JobDetailBean" >
+    <bean name="schedulerJob" class="org.springframework.scheduling.quartz.JobDetailBean">
         <property name="jobClass" value="org.tamin.jobs.MessageNotifier"/>
         <property name="jobDataAsMap">
             <map>
-                <entry key="ChildUpdateDAOImpl" value-ref="ChildUpdateDAOImpl"/>
+                <entry key="OutboundDAOImpl" value-ref="OutboundDAOImpl"/>
+                <entry key="InboundDAOImpl" value-ref="InboundDAOImpl"/>
             </map>
         </property>
 

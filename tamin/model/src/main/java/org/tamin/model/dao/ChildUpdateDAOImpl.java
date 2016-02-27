@@ -23,15 +23,7 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
 
     private String maxSize;
 
-    private ConnectionManager connectionManager;
 
-    public void setConnectionManager(ConnectionManager ConnectionManager) {
-        connectionManager = ConnectionManager;
-    }
-
-    public ConnectionManager getConnectionManager() {
-        return connectionManager;
-    }
 
 
     synchronized public List<DAOResult> updateChildRefList(long size) {
@@ -51,14 +43,14 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
             /*query for mysql*/
             String query = String.format("SELECT t.*  FROM ibsfx01 t ", getMaxSize());
 
-             EntityManager en =  ConnectionManager.getInstance(ConnectionManager.ORACLE_CONENECTION)
-                    .getEntityManagerFactory().createEntityManager();
+//             EntityManager en =  ConnectionManager.getInstance(ConnectionManager.ORACLE_CONENECTION)
+//                    .getEntityManagerFactory().createEntityManager();
 
-            List lst = en.createNativeQuery(query)
-                    .getResultList();
-            en.close();
+//            List lst = en.createNativeQuery(query)
+//                    .getResultList();
+//            en.close();
 
-            logger.log(Level.INFO, "count of data is  : " + lst.size());
+//            logger.log(Level.INFO, "count of data is  : " + lst.size());
 
             DAOResult result = new DAOResult(DAOResult.PERSIST_DONE, "");
             resultList.add(result);
