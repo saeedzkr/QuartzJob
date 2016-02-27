@@ -170,7 +170,7 @@ public class QueueMonitor implements Serializable {
                     //this.currentCycle = triggers.get(0).getPreviousFireTime().getTime(); //- triggers.get(0).getNextFireTime().getTime()) / 10;
                     this.currentCycleTime = triggers.get(0).getPreviousFireTime().toString();
                     this.nextCycleTime = triggers.get(0).getNextFireTime().toString();
-                    this.currentQueueSize = TaminConfiguration.getConfiguration().getQueueSize();
+                    //this.currentQueueSize = TaminConfiguration.getConfiguration().getQueueSize();
                     this.activeJob = scheduler.isShutdown();
 
                     //quartzJobList.add(new QuartzJob(jobName, jobGroup, nextFireTime));
