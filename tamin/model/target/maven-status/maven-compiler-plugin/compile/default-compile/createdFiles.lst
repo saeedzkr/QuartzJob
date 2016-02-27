@@ -1,5 +1,0 @@
-org\tamin\model\dao\BaseDAOImpl.class
-org\tamin\model\dao\ChildUpdateDAOImpl.class
-org\tamin\model\dao\ChildUpdateDAO.class
-org\tamin\model\utils\DAOResult.class
-org\tamin\model\dao\ConnectionManager.class
