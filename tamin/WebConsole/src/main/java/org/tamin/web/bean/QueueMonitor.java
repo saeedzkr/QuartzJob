@@ -1,12 +1,11 @@
 package org.tamin.web.bean;
 
-import org.quartz.JobKey;
+
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.impl.StdSchedulerFactory;
-import org.quartz.impl.matchers.GroupMatcher;
 import org.tamin.config.TaminConfiguration;
 
 
@@ -152,32 +151,32 @@ public class QueueMonitor implements Serializable {
             StdSchedulerFactory stdSchedulerFactory =
                     (StdSchedulerFactory) servletContext.getAttribute(QuartzInitializerListener.QUARTZ_FACTORY_KEY);
             scheduler = stdSchedulerFactory.getScheduler();
-            for (String groupName : scheduler.getJobGroupNames()) {
-                // get jobkey
-                for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
-                    String jobName = jobKey.getName();
-                    String jobGroup = jobKey.getGroup();
-                    // get job's trigger
-                    List<Trigger> triggers = (List<Trigger>) scheduler
-                            .getTriggersOfJob(jobKey);
-                    this.activeConnection = String.valueOf(scheduler.isShutdown());
-                    //List<DAOResult> result = (List<DAOResult>) scheduler.getJobDetail(jobKey).getJobDataMap().get("result");
-                    long succeed = 0;
-                    long failed = 0;
-
-                    this.doneProcessSize = succeed;
-                    this.failedProcessSize = failed;
-                    //this.currentCycle = triggers.get(0).getPreviousFireTime().getTime(); //- triggers.get(0).getNextFireTime().getTime()) / 10;
-                    this.currentCycleTime = triggers.get(0).getPreviousFireTime().toString();
-                    this.nextCycleTime = triggers.get(0).getNextFireTime().toString();
-                    //this.currentQueueSize = TaminConfiguration.getConfiguration().getQueueSize();
-                    this.activeJob = scheduler.isShutdown();
-
-                    //quartzJobList.add(new QuartzJob(jobName, jobGroup, nextFireTime));
-
-                }
-
-            }
+//            for (String groupName : scheduler.getJobGroupNames()) {
+//                // get jobkey
+//                for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
+//                    String jobName = jobKey.getName();
+//                    String jobGroup = jobKey.getGroup();
+//                    // get job's trigger
+//                    List<Trigger> triggers = (List<Trigger>) scheduler
+//                            .getTriggersOfJob(jobKey);
+//                    this.activeConnection = String.valueOf(scheduler.isShutdown());
+//                    //List<DAOResult> result = (List<DAOResult>) scheduler.getJobDetail(jobKey).getJobDataMap().get("result");
+//                    long succeed = 0;
+//                    long failed = 0;
+//
+//                    this.doneProcessSize = succeed;
+//                    this.failedProcessSize = failed;
+//                    //this.currentCycle = triggers.get(0).getPreviousFireTime().getTime(); //- triggers.get(0).getNextFireTime().getTime()) / 10;
+//                    this.currentCycleTime = triggers.get(0).getPreviousFireTime().toString();
+//                    this.nextCycleTime = triggers.get(0).getNextFireTime().toString();
+//                    //this.currentQueueSize = TaminConfiguration.getConfiguration().getQueueSize();
+//                    this.activeJob = scheduler.isShutdown();
+//
+//                    //quartzJobList.add(new QuartzJob(jobName, jobGroup, nextFireTime));
+//
+//                }
+//
+//            }
 
         } catch (Exception ex) {
             FacesMessage msg = new FacesMessage();

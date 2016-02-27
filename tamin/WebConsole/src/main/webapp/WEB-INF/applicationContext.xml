@@ -5,31 +5,70 @@
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
+    <bean id="ChildUpdateDAOImpl" class="org.tamin.model.dao.ChildUpdateDAOImpl" scope="singleton">
+        <property name="ConnectionManager" ref="ConnectionManager"/>
+        <property name="maxSize" value="1000"/>
+    </bean>
 
-    <bean id="ChildUpdateDAOImpl" class="org.tamin.model.dao.ChildUpdateDAOImpl"/>
-
-    <bean id="MessageNotifier" class="org.tamin.jobs.MessageNotifier">
-        <property name="ChildUpdateDAOImpl" ref="ChildUpdateDAOImpl"/>
+    <bean id="ConnectionManager" class="org.tamin.model.dao.ConnectionManager" scope="singleton">
+        <property name="dbconfig">
+            <map>
+                <entry key="class">
+                    <value>${gl.connection.jdbc.driver.class}</value>
+                </entry>
+                <entry key="url">
+                    <value>${gl.connection.url}</value>
+                </entry>
+                <entry key="username">
+                    <value>${gl.connection.username}</value>
+                </entry>
+                <entry key="password">
+                    <value>${gl.connection.password}</value>
+                </entry>
+                <entry key="port">
+                    <value>${gl.connection.port}</value>
+                </entry>
+            </map>
+        </property>
     </bean>
 
 
+    <!-- Spring Quartz Scheduler job -->
+    <bean name="schedulerJob" class="org.springframework.scheduling.quartz.JobDetailBean" >
+        <property name="jobClass" value="org.tamin.jobs.MessageNotifier"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="ChildUpdateDAOImpl" value-ref="ChildUpdateDAOImpl"/>
+            </map>
+        </property>
+
+    </bean>
+
+    <!-- Cron Trigger, run every - seconds -->
+    <bean id="cronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+
+        <property name="jobDetail" ref="schedulerJob"/>
+        <property name="cronExpression" value="0/10 * * * * ?"/>
+
+    </bean>
 
 
-    <!-- -->
-    <!--<bean id="customerDAO" class="org.RayanEN.model.dao.Customer.CustomerDAOImpl"/>-->
-    <!--<bean id="cstsrv" class="org.RayanEN.model.service.Customer.CustomerJAXWSImpl">-->
-    <!--<property name="customerDAO" ref="customerDAO"/>-->
-    <!--</bean>-->
+    <!-- Dependency Injection -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="schedulerJob"/>
 
+            </list>
+        </property>
 
-    <!--<bean id="customerRESTImpl" class="org.RayanEN.model.service.Customer.CustomerRESTImpl">-->
-    <!--<property name="customerDAO" ref="customerDAO"/>-->
-    <!--</bean>-->
-
-
-    <!--<ws:service id="cstsrv" impl="org.RayanEN.model.service.Customer.CustomerJAXWSImpl"   />-->
-
-    <!--<wss:binding url="/CustomerService" service="cstsrv" />-->
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+    </bean>
 
 
 </beans>

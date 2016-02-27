@@ -1,11 +1,16 @@
 package org.tamin.jobs;
 
+import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.stereotype.Repository;
 import org.tamin.config.TaminConfiguration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 //import org.tamin.
+import org.tamin.model.dao.ChildUpdateDAO;
 import org.tamin.model.dao.ChildUpdateDAOImpl;
 import org.tamin.model.utils.DAOResult;
 
@@ -17,53 +22,38 @@ import java.util.List;
 /**
  * Created by sector7 on 12/31/15.
  */
-public class MessageNotifier implements Job {
+public class MessageNotifier extends QuartzJobBean {
 
     final Logger logger = Logger.getLogger("JobLogger");
+
 
     private ChildUpdateDAOImpl childUpdateDAOImpl;
 
 
-    public void setChildUpdateDAOImpl(ChildUpdateDAOImpl ChildUpdateDAOImpl) {
-        childUpdateDAOImpl = ChildUpdateDAOImpl;
-    }
 
     public ChildUpdateDAOImpl getChildUpdateDAOImpl() {
         return childUpdateDAOImpl;
     }
 
-
-    private static final EntityManagerFactory entityManagerFactory;
-
-    static {
-        entityManagerFactory = Persistence.createEntityManagerFactory("MyConnection");
+    public void setChildUpdateDAOImpl(ChildUpdateDAOImpl childUpdateDAOImpl) {
+        this.childUpdateDAOImpl = childUpdateDAOImpl;
     }
 
-    public static EntityManagerFactory getEntityManagerFactory() {
-        return entityManagerFactory;
-    }
-
-    public void execute(JobExecutionContext jobExecutionContext) {
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         try {
 
-            //   long queueSize = TaminConfiguration.getConfiguration().getQueueSize();
-            //getChildUpdateDAOImpl().updateChildRefList(0);
+            List<DAOResult> result = childUpdateDAOImpl.updateChildRefList(10);
 
-            String query = String.format("SELECT t.*  FROM ibsfx01 t ", 10);
-
-            List lst =
-                    getEntityManagerFactory().createEntityManager().createNativeQuery(query).getResultList();
 
             System.out.println("------------------------------- 001");
-            logger.log(Level.INFO, "Job start and queue size is " + lst.size());
+            //logger.log(Level.INFO, "Job start and queue size is " + result.size());
 
 
         } catch (Exception ex) {
             logger.log(Level.INFO, ex.getMessage());
         }
-
     }
-
 
 
 }

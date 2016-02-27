@@ -4,6 +4,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.tamin.model.utils.DAOResult;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
@@ -19,14 +20,17 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
 
     private static final long UPDATE_RECORD = 2;
 
-    private static final EntityManagerFactory entityManagerFactory;
 
-    static {
-        entityManagerFactory = Persistence.createEntityManagerFactory("MyConnection");
+    private String maxSize;
+
+    private ConnectionManager connectionManager;
+
+    public void setConnectionManager(ConnectionManager ConnectionManager) {
+        connectionManager = ConnectionManager;
     }
 
-    public static EntityManagerFactory getEntityManagerFactory() {
-        return entityManagerFactory;
+    public ConnectionManager getConnectionManager() {
+        return connectionManager;
     }
 
 
@@ -35,6 +39,9 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
 
         try {
 
+
+            System.out.println("++++++++++++++++++++++++++++++++++++ 001");
+
             //todo create Queue base on count that has been set
             //todo read form parameters file
 
@@ -42,27 +49,37 @@ public class ChildUpdateDAOImpl implements ChildUpdateDAO {
             //String query = "SELECT t.*  FROM tbl_user t where t.status = 1 And ROWNUM <= 100;" ;
 
             /*query for mysql*/
-            String query = String.format("SELECT t.*  FROM ibsfx01 t ", size);
+            String query = String.format("SELECT t.*  FROM ibsfx01 t ", getMaxSize());
 
-            List lst =
-                    getEntityManagerFactory().createEntityManager().createNativeQuery(query)
+             EntityManager en =  ConnectionManager.getInstance(ConnectionManager.ORACLE_CONENECTION)
+                    .getEntityManagerFactory().createEntityManager();
+
+            List lst = en.createNativeQuery(query)
                     .getResultList();
+            en.close();
 
             logger.log(Level.INFO, "count of data is  : " + lst.size());
 
-//            for (int i = 0; i <= lstUsr.size(); i++) {
-//                User usr = lstUsr.get(i);
-//                usr.setUserid(Long.valueOf(2));
-//                getEntityManagerFactory().createEntityManager().merge(usr);
-//            }
-
             DAOResult result = new DAOResult(DAOResult.PERSIST_DONE, "");
             resultList.add(result);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
+            logger.log(Level.ERROR , ex.getMessage());
             DAOResult result = new DAOResult(DAOResult.PERSIST_FAILED, "");
             resultList.add(result);
         }
 
         return resultList;
     }
+
+    public void setMaxSize(String maxSize) {
+        this.maxSize = maxSize;
+    }
+
+    public String getMaxSize() {
+        return maxSize;
+    }
+
+
+
 }

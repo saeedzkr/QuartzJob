@@ -29,6 +29,7 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
             <property name="hibernate.format_sql" value="false"/>
             <property name="hibernate.show_sql" value="false"/>
+            <property name="connection.pool_size" value="200"/>
         </properties>
     </persistence-unit>
 
