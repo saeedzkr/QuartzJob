@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: sector7
+  Date: 12/30/15
+  Time: 6:36 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Tamin Job monitor panel</title>
+    <script type="text/javascript">
+        setInterval('window.location.reload()', 10000);
+    </script>
+</h:head>
+<h:body onload="#{queueMonitor.calculateJob()}">
+    <h:form id="formQueue">
+        <div style="text-align: center; ">
+            <f:view>
+                <h:outputLabel id="lblJob" value="Tamin Job monitor panel"/>
+
+                <h3> Job is Shutdown :#{queueMonitor.activeJob}</h3>
+
+                <h3> current qeueSize is : #{queueMonitor.currentQueueSize}</h3>
+
+                <h3> current cycle number is :#{queueMonitor.currentCycle}</h3>
+
+                <h3> current cycle Time is :#{queueMonitor.currentCycleTime}</h3>
+
+                <h3> Next cycle Time is :#{queueMonitor.nextCycleTime}</h3>
+
+                <h3> Active current Queue count is :#{queueMonitor.queueSize}</h3>
+
+                <h3> Sucessfull persist items is :#{queueMonitor.doneProcessSize}</h3>
+
+                <h3> Failed persist items is :#{queueMonitor.failedProcessSize}</h3>
+
+            </f:view>
+
+        </div>
+    </h:form>
+</h:body>
+</html>
