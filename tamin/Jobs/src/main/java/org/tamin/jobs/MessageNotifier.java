@@ -29,8 +29,10 @@ public class MessageNotifier extends QuartzJobBean {
     final Logger logger = Logger.getLogger("JobLogger");
 
 
+    private String fetchSize;
+
     private OutboundDAOImpl outboundDAOImpl;
-    private InboundDAOImpl inboundDAOImpl;
+
 
     public OutboundDAOImpl getOutboundDAOImpl() {
         return outboundDAOImpl;
@@ -40,13 +42,14 @@ public class MessageNotifier extends QuartzJobBean {
         this.outboundDAOImpl = outboundDAOImpl;
     }
 
-    public InboundDAOImpl getInboundDAOImpl() {
-        return inboundDAOImpl;
+    public String getFetchSize() {
+        return fetchSize;
     }
 
-    public void setInboundDAOImpl(InboundDAOImpl inboundDAOImpl) {
-        this.inboundDAOImpl = inboundDAOImpl;
+    public void setFetchSize(String fetchSize) {
+        this.fetchSize = fetchSize;
     }
+
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {

@@ -26,7 +26,8 @@ public class OutboundConnection implements TaminConnection
 
     private Properties properties;
 
-    public void initialize(Properties properties) throws Exception {
+    public void initialize()
+    {
      try {
 
             dataSource = new BasicDataSource();
@@ -38,6 +39,9 @@ public class OutboundConnection implements TaminConnection
         }
         catch (Exception ex)
         {
+            System.out.println("+++++++++++++++++++");
+            ex.printStackTrace();
+            System.out.println("+++++++++++++++++++");
             logger.log(Level.INFO, ex.getMessage());
         }
     }
@@ -55,4 +59,7 @@ public class OutboundConnection implements TaminConnection
     public Properties getProperties() {
         return properties;
     }
+
+
+
 }

@@ -8,7 +8,7 @@ import java.util.Properties;
 public interface TaminConnection
 {
 
-    void initialize(Properties properties) throws Exception;
+    void initialize() ;
 
 
 }

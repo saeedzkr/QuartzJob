@@ -5,7 +5,7 @@
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection"  scope="singleton" >
+    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection"  scope="singleton" init-method="initialize">
         <property name="properties">
             <props>
                 <prop key="gl.out.connection.jdbc.driver.class">${gl.out.connection.jdbc.driver.class}</prop>
@@ -16,7 +16,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
             </props>
         </property>
     </bean>
-    <bean id="InboundConnection" class="org.tamin.model.utils.InboundConnection" scope="singleton">
+    <bean id="InboundConnection" class="org.tamin.model.utils.InboundConnection" scope="singleton" >
         <property name="properties">
             <props>
                 <prop key="gl.in.connection.jdbc.driver.class">${gl.in.connection.jdbc.driver.class}</prop>
@@ -34,14 +34,14 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     </bean>
 
 
-    <bean id="OutboundDAOImpl" class="org.tamin.model.dao.OutboundDAOImpl" scope="singleton">
+    <bean id="OutboundDAOImpl" class="org.tamin.model.dao.OutboundDAOImpl" >
         <property name="OutboundConnection" ref="OutboundConnection"/>
         <property name="maxSize" value="1000"/>
 
 
     </bean>
 
-    <bean id="InboundDAOImpl" class="org.tamin.model.dao.InboundDAOImpl" scope="singleton">
+    <bean id="InboundDAOImpl" class="org.tamin.model.dao.InboundDAOImpl" >
         <property name="InboundConnection" ref="InboundConnection"/>
         <property name="maxSize" value="1000"/>
 
@@ -53,8 +53,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         <property name="jobClass" value="org.tamin.jobs.MessageNotifier"/>
         <property name="jobDataAsMap">
             <map>
-                <entry key="OutboundDAOImpl" value-ref="OutboundDAOImpl"/>
-                <entry key="InboundDAOImpl" value-ref="InboundDAOImpl"/>
+                <entry key="outboundDAOImpl" value-ref="OutboundDAOImpl"/>
+                <entry key="fetchSize" value="100000" />
             </map>
         </property>
 

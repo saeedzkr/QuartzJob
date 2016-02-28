@@ -11,7 +11,7 @@ public class InboundConnection implements TaminConnection
     private Properties properties;
 
     @Override
-    public void initialize(Properties properties) throws Exception {
+    public void initialize() {
 
     }
 

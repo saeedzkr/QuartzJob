@@ -24,7 +24,7 @@ public class OutboundDAOImpl implements OutboundDAO {
         Connection cnn;
         try {
             String sql  ="SELECT t.*  FROM ibsfx01 t";
-            cnn = getOutboundConnection().getConnection();
+            cnn = outboundConnection.getConnection();
             stmt = cnn.prepareStatement(sql);
             //ResultSet resultSet =
             stmt.executeQuery();
