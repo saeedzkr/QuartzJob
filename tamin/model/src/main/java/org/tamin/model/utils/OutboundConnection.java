@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 
-
 /**
  * Created by s.zakipour on 02/27/2016.
  */
-public class OutboundConnection implements TaminConnection
-{
+public class OutboundConnection implements TaminConnection {
     final Logger logger = Logger.getLogger("JobLogger");
 
     private static final String CONNECTION_DRIVER_CLASS = "gl.out.connection.jdbc.driver.class";
@@ -26,9 +24,9 @@ public class OutboundConnection implements TaminConnection
 
     private Properties properties;
 
-    public void initialize()
-    {
-     try {
+    public void initialize() {
+        try {
+            System.out.println("++++++++++++++" + properties.getProperty(CONNECTION_DRIVER_CLASS));
 
             dataSource = new BasicDataSource();
             dataSource.setDriverClassName(properties.getProperty(CONNECTION_DRIVER_CLASS));
@@ -36,9 +34,7 @@ public class OutboundConnection implements TaminConnection
             dataSource.setPassword(properties.getProperty(CONNECTION_PASSWORD));
             dataSource.setUsername(properties.getProperty(CONNECTION_USERNAME));
 
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("+++++++++++++++++++");
             ex.printStackTrace();
             System.out.println("+++++++++++++++++++");
@@ -47,8 +43,7 @@ public class OutboundConnection implements TaminConnection
     }
 
 
-    public java.sql.Connection getConnection() throws SQLException
-    {
+    public java.sql.Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
 
@@ -59,7 +54,6 @@ public class OutboundConnection implements TaminConnection
     public Properties getProperties() {
         return properties;
     }
-
 
 
 }
