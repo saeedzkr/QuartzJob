@@ -15,6 +15,11 @@ public class InboundConnection implements TaminConnection
 
     }
 
+    @Override
+    public void destroy() {
+
+    }
+
     public void setProperties(Properties properties) {
         this.properties = properties;
     }

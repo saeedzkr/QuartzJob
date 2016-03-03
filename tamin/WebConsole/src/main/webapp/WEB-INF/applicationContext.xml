@@ -6,29 +6,35 @@
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-    <context:property-placeholder location="WEB-INF/connector.properties" />
 
-    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection"  scope="singleton" init-method="initialize">
-        <property name="properties">
-            <props>
-                <prop key="gl.out.connection.jdbc.driver.class">${gl.out.connection.jdbc.driver.class}</prop>
-                <prop key="gl.out.connection.jdbc.url">${gl.out.connection.jdbc.url}</prop>
-                <prop key="gl.out.connection.jdbc.username">${gl.out.connection.jdbc.username}</prop>
-                <prop key="gl.out.connection.jdbc.password">${gl.out.connection.jdbc.password}</prop>
-                <prop key="gl.out.connection.jdbc.port">${gl.out.connection.jdbc.port}</prop>
-            </props>
-        </property>
+
+    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection"   >
+        <property name="dataSource" ref="MysqlDataSource"/>
     </bean>
+
     <bean id="InboundConnection" class="org.tamin.model.utils.InboundConnection" scope="singleton" >
-        <property name="properties">
-            <props>
-                <prop key="gl.in.connection.jdbc.driver.class">${gl.in.connection.jdbc.driver.class}</prop>
-                <prop key="gl.in.connection.jdbc.url">${gl.in.connection.jdbc.url}</prop>
-                <prop key="gl.in.connection.jdbc.username">${gl.in.connection.jdbc.username}</prop>
-                <prop key="gl.in.connection.jdbc.password">${gl.in.connection.jdbc.password}</prop>
-                <prop key="gl.in.connection.jdbc.port">${gl.in.connection.jdbc.port}</prop>
-            </props>
-        </property>
+
+    </bean>
+
+
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="/WEB-INF/connector.properties" />
+    </bean>
+
+    <!--<bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" init-method="getConnection">-->
+        <!--<property name="driverClassName"><value>${gl.out.connection.jdbc.driver.class}</value></property>-->
+        <!--<property name="url"><value>${gl.out.connection.jdbc.url}</value></property>-->
+        <!--<property name="username"><value>${gl.out.connection.jdbc.username}</value></property>-->
+        <!--<property name="password"><value>${gl.out.connection.jdbc.password}</value></property>-->
+    <!--</bean>-->
+
+
+    <bean id="MysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"  scope="singleton" >
+        <property name="driverClassName"><value>${gl.out.connection.mysql.jdbc.driver.class}</value></property>
+        <property name="url"><value>${gl.out.connection.mysql.jdbc.url}</value></property>
+        <property name="username"><value>${gl.out.connection.mysql.jdbc.username}</value></property>
+        <property name="password"><value>${gl.out.connection.mysql.jdbc.password}</value></property>
+        <property name="maxActive"><value>${gl.out.connection.mysql.jdbc.MaxActive}</value></property>
     </bean>
 
 

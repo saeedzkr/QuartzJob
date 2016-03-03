@@ -1,11 +1,9 @@
 package org.tamin.model.dao;
 
+import org.apache.log4j.Logger;
 import org.tamin.model.utils.OutboundConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Properties;
 
@@ -18,22 +16,53 @@ public class OutboundDAOImpl implements OutboundDAO {
     private Properties properties;
     private OutboundConnection outboundConnection;
 
+    final Logger logger = Logger.getLogger("JobLogger");
+
     @Override
     public List listOutbound() {
-        PreparedStatement stmt;
-        Connection cnn;
+        PreparedStatement stmt = null;
+        Connection cnn = null;
+
         try {
-            String sql  ="SELECT t.*  FROM ibsfx01 t";
+            //String sql  ="SELECT t.*  FROM ibsfx01 t";
+            String sql = "INSERT INTO user (id ,username,password,name,family) " +
+                    "VALUES ( ? , ? , ? , ? , ?)";
             cnn = outboundConnection.getConnection();
-            stmt = cnn.prepareStatement(sql);
-            //ResultSet resultSet =
-            stmt.executeQuery();
+            stmt = cnn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-        } catch (SQLException e)
-        {
+            stmt.setNull(1, Types.INTEGER);
+            stmt.setString(2, "saeedzr");
+            stmt.setString(3, "fatoldsun");
+            stmt.setString(4, "saeed");
+            stmt.setString(5, "zakipour");
 
+            stmt.executeUpdate();
+            cnn.close();
+
+        } catch (SQLException e) {
+
+            logger.fatal(e);
+            if (cnn != null)
+                try {
+                    cnn.close();
+                } catch (SQLException e1) {
+
+                    e1.printStackTrace();
+                    logger.fatal(e1);
+                }
             e.printStackTrace();
+        } finally {
+            try {
+                if (cnn != null)
+                    cnn.close();
+            } catch (SQLException se)
+            {
+                logger.fatal(se);
+                se.printStackTrace();
+            }
+
         }
+
 
         return null;
     }

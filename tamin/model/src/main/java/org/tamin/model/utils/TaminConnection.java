@@ -10,5 +10,6 @@ public interface TaminConnection
 
     void initialize() ;
 
+    void destroy();
 
 }

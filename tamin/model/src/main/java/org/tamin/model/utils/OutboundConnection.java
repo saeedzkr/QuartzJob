@@ -14,31 +14,27 @@ import java.util.Properties;
 public class OutboundConnection implements TaminConnection {
     final Logger logger = Logger.getLogger("JobLogger");
 
-    private static final String CONNECTION_DRIVER_CLASS = "gl.out.connection.jdbc.driver.class";
-    private static final String CONNECTION_URL = "gl.out.connection.jdbc.url";
-    private static final String CONNECTION_USERNAME = "gl.out.connection.jdbc.username";
-    private static final String CONNECTION_PASSWORD = "gl.out.connection.jdbc.password";
-    private static final String CONNECTION_PORT = "gl.out.connection.jdbc.port";
-
-    private BasicDataSource dataSource;
 
     private Properties properties;
+    private BasicDataSource dataSource;
 
     public void initialize() {
         try {
-            System.out.println("++++++++++++++" + properties.getProperty(CONNECTION_DRIVER_CLASS));
-
-            dataSource = new BasicDataSource();
-            dataSource.setDriverClassName(properties.getProperty(CONNECTION_DRIVER_CLASS));
-            dataSource.setUrl(properties.getProperty(CONNECTION_URL));
-            dataSource.setPassword(properties.getProperty(CONNECTION_PASSWORD));
-            dataSource.setUsername(properties.getProperty(CONNECTION_USERNAME));
+            logger.log(Level.INFO, " datasource initialize");
 
         } catch (Exception ex) {
-            System.out.println("+++++++++++++++++++");
             ex.printStackTrace();
-            System.out.println("+++++++++++++++++++");
             logger.log(Level.INFO, ex.getMessage());
+        }
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            dataSource.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -56,4 +52,11 @@ public class OutboundConnection implements TaminConnection {
     }
 
 
+    public void setDataSource(BasicDataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    public BasicDataSource getDataSource() {
+        return dataSource;
+    }
 }
