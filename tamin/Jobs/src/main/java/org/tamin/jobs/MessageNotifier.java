@@ -59,6 +59,7 @@ public class MessageNotifier extends QuartzJobBean {
 
             System.out.println("------------------------------- 001");
 
+
             outboundDAOImpl.listOutbound();
 
             System.out.println("------------------------------- 001");

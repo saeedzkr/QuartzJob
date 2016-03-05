@@ -36,6 +36,7 @@ public class OutboundDAOImpl implements OutboundDAO {
             stmt.setString(4, "saeed");
             stmt.setString(5, "zakipour");
 
+
             stmt.executeUpdate();
             cnn.close();
 

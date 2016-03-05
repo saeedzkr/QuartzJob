@@ -21,11 +21,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         <property name="location" value="/WEB-INF/connector.properties" />
     </bean>
 
-    <!--<bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" init-method="getConnection">-->
-        <!--<property name="driverClassName"><value>${gl.out.connection.jdbc.driver.class}</value></property>-->
-        <!--<property name="url"><value>${gl.out.connection.jdbc.url}</value></property>-->
-        <!--<property name="username"><value>${gl.out.connection.jdbc.username}</value></property>-->
-        <!--<property name="password"><value>${gl.out.connection.jdbc.password}</value></property>-->
+    <!--<bean id="OracleDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"  scope="singleton" >-->
+        <!--<property name="driverClassName"><value>${gl.in.connection.mysql.jdbc.driver.class}</value></property>-->
+        <!--<property name="url"><value>${gl.in.connection.mysql.jdbc.url}</value></property>-->
+        <!--<property name="username"><value>${gl.in.connection.mysql.jdbc.username}</value></property>-->
+        <!--<property name="password"><value>${gl.in.connection.mysql.jdbc.password}</value></property>-->
+        <!--<property name="maxActive"><value>${gl.in.connection.mysql.jdbc.MaxActive}</value></property>-->
     <!--</bean>-->
 
 
@@ -38,22 +39,17 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     </bean>
 
 
-    <bean id="ChildUpdateDAOImpl" class="org.tamin.model.dao.ChildUpdateDAOImpl" scope="singleton">
-        <property name="maxSize" value="1000"/>
-    </bean>
+
 
 
     <bean id="OutboundDAOImpl" class="org.tamin.model.dao.OutboundDAOImpl" >
         <property name="OutboundConnection" ref="OutboundConnection"/>
         <property name="maxSize" value="1000"/>
-
-
     </bean>
 
     <bean id="InboundDAOImpl" class="org.tamin.model.dao.InboundDAOImpl" >
         <property name="InboundConnection" ref="InboundConnection"/>
         <property name="maxSize" value="1000"/>
-
     </bean>
 
 
