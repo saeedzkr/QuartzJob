@@ -7,5 +7,9 @@ import java.util.List;
  */
 public interface InboundDAO {
 
-    public List listInbound();
+    List listInbound();
+
+    void insert(Object obj);
+
+    Object getObject(long id);
 }

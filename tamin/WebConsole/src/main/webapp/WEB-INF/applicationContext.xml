@@ -6,48 +6,53 @@
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 
-
-
-    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection"   >
+    <bean id="OutboundConnection" class="org.tamin.model.utils.OutboundConnection" scope="singleton">
         <property name="dataSource" ref="MysqlDataSource"/>
     </bean>
 
-    <bean id="InboundConnection" class="org.tamin.model.utils.InboundConnection" scope="singleton" >
-
+    <bean id="InboundConnection" class="org.tamin.model.utils.InboundConnection" scope="singleton">
+        <property name="dataSource" ref="MysqlDataSource"/>
     </bean>
 
 
     <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="/WEB-INF/connector.properties" />
+        <property name="location" value="/WEB-INF/connector.properties"/>
     </bean>
 
     <!--<bean id="OracleDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"  scope="singleton" >-->
-        <!--<property name="driverClassName"><value>${gl.in.connection.mysql.jdbc.driver.class}</value></property>-->
-        <!--<property name="url"><value>${gl.in.connection.mysql.jdbc.url}</value></property>-->
-        <!--<property name="username"><value>${gl.in.connection.mysql.jdbc.username}</value></property>-->
-        <!--<property name="password"><value>${gl.in.connection.mysql.jdbc.password}</value></property>-->
-        <!--<property name="maxActive"><value>${gl.in.connection.mysql.jdbc.MaxActive}</value></property>-->
+    <!--<property name="driverClassName"><value>${gl.in.connection.mysql.jdbc.driver.class}</value></property>-->
+    <!--<property name="url"><value>${gl.in.connection.mysql.jdbc.url}</value></property>-->
+    <!--<property name="username"><value>${gl.in.connection.mysql.jdbc.username}</value></property>-->
+    <!--<property name="password"><value>${gl.in.connection.mysql.jdbc.password}</value></property>-->
+    <!--<property name="maxActive"><value>${gl.in.connection.mysql.jdbc.MaxActive}</value></property>-->
     <!--</bean>-->
 
 
-    <bean id="MysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"  scope="singleton" >
-        <property name="driverClassName"><value>${gl.out.connection.mysql.jdbc.driver.class}</value></property>
-        <property name="url"><value>${gl.out.connection.mysql.jdbc.url}</value></property>
-        <property name="username"><value>${gl.out.connection.mysql.jdbc.username}</value></property>
-        <property name="password"><value>${gl.out.connection.mysql.jdbc.password}</value></property>
-        <property name="maxActive"><value>${gl.out.connection.mysql.jdbc.MaxActive}</value></property>
+    <bean id="MysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" scope="singleton">
+        <property name="driverClassName">
+            <value>${gl.out.connection.mysql.jdbc.driver.class}</value>
+        </property>
+        <property name="url">
+            <value>${gl.out.connection.mysql.jdbc.url}</value>
+        </property>
+        <property name="username">
+            <value>${gl.out.connection.mysql.jdbc.username}</value>
+        </property>
+        <property name="password">
+            <value>${gl.out.connection.mysql.jdbc.password}</value>
+        </property>
+        <property name="maxActive">
+            <value>${gl.out.connection.mysql.jdbc.MaxActive}</value>
+        </property>
     </bean>
 
 
-
-
-
-    <bean id="OutboundDAOImpl" class="org.tamin.model.dao.OutboundDAOImpl" >
+    <bean id="OutboundDAOImpl" class="org.tamin.model.dao.OutboundDAOImpl">
         <property name="OutboundConnection" ref="OutboundConnection"/>
         <property name="maxSize" value="1000"/>
     </bean>
 
-    <bean id="InboundDAOImpl" class="org.tamin.model.dao.InboundDAOImpl" >
+    <bean id="InboundDAOImpl" class="org.tamin.model.dao.InboundDAOImpl">
         <property name="InboundConnection" ref="InboundConnection"/>
         <property name="maxSize" value="1000"/>
     </bean>
@@ -59,10 +64,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         <property name="jobDataAsMap">
             <map>
                 <entry key="outboundDAOImpl" value-ref="OutboundDAOImpl"/>
-                <entry key="fetchSize" value="100000" />
+                <entry key="inboundDAOImpl" value-ref="InboundDAOImpl"/>
+                <entry key="fetchSize" value="100000"/>
             </map>
         </property>
-
     </bean>
 
     <!-- Cron Trigger, run every - seconds -->
@@ -70,7 +75,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
           class="org.springframework.scheduling.quartz.CronTriggerBean">
 
         <property name="jobDetail" ref="schedulerJob"/>
-        <property name="cronExpression" value="0/10 * * * * ?"/>
+        <property name="cronExpression" value="0/60 * * * * ?"/>
 
     </bean>
 

@@ -4,6 +4,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Repository;
+import org.tamin.Queue.TaminQueue;
 import org.tamin.config.TaminConfiguration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -19,6 +20,7 @@ import org.tamin.model.utils.DAOResult;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -33,6 +35,15 @@ public class MessageNotifier extends QuartzJobBean {
 
     private OutboundDAOImpl outboundDAOImpl;
 
+    private InboundDAOImpl inboundDAOImpl;
+
+    public InboundDAOImpl getInboundDAOImpl() {
+        return inboundDAOImpl;
+    }
+
+    public void setInboundDAOImpl(InboundDAOImpl inboundDAOImpl) {
+        this.inboundDAOImpl = inboundDAOImpl;
+    }
 
     public OutboundDAOImpl getOutboundDAOImpl() {
         return outboundDAOImpl;
@@ -55,21 +66,28 @@ public class MessageNotifier extends QuartzJobBean {
     protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         try {
 
-            //List<DAOResult> result = childUpdateDAOImpl.updateChildRefList(10);
 
             System.out.println("------------------------------- 001");
 
 
-            outboundDAOImpl.listOutbound();
+            List lst = outboundDAOImpl.listOutbound();
+
+            Iterator it = lst.iterator();
+
+            while (it.hasNext()) {
+                System.out.println(it.next());
+                inboundDAOImpl.
+                it.remove();
+            }
+
 
             System.out.println("------------------------------- 001");
-            //logger.log(Level.INFO, "Job start and queue size is " + result.size());
+            logger.log(Level.INFO, "Job start and queue size is " + TaminQueue.getInstance().getList().size());
 
 
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            logger.log(Level.INFO, ex.getMessage());
+            logger.error(Level.WARN, ex.getCause());
         }
     }
 

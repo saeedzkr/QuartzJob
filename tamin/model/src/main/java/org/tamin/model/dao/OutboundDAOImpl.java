@@ -1,9 +1,12 @@
 package org.tamin.model.dao;
 
 import org.apache.log4j.Logger;
+import org.tamin.model.entity.Model;
+import org.tamin.model.entity.Outbound;
 import org.tamin.model.utils.OutboundConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -19,37 +22,59 @@ public class OutboundDAOImpl implements OutboundDAO {
     final Logger logger = Logger.getLogger("JobLogger");
 
     @Override
-    public List listOutbound() {
-        PreparedStatement stmt = null;
+    public List listOutbound()
+    {
+        //PreparedStatement stmt = null;
         Connection cnn = null;
+        List list = new ArrayList();
 
         try {
-            //String sql  ="SELECT t.*  FROM ibsfx01 t";
-            String sql = "INSERT INTO user (id ,username,password,name,family) " +
-                    "VALUES ( ? , ? , ? , ? , ?)";
+
+
+//            String sql = "INSERT INTO user (id ,username,password,name,family) " +
+//                    "VALUES ( ? , ? , ? , ? , ?)";
+//            cnn = outboundConnection.getConnection();
+//            stmt = cnn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+//
+//            stmt.setNull(1, Types.INTEGER);
+//            stmt.setString(2, "saeedzr");
+//            stmt.setString(3, "fatoldsun");
+//            stmt.setString(4, "saeed");
+//            stmt.setString(5, "zakipour");
+//
+//
+//            stmt.executeUpdate();
+
+            String sql = "SELECT * FROM user";
             cnn = outboundConnection.getConnection();
-            stmt = cnn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            Statement stmt = cnn.createStatement();
+            ResultSet result =  stmt.executeQuery(sql);
 
-            stmt.setNull(1, Types.INTEGER);
-            stmt.setString(2, "saeedzr");
-            stmt.setString(3, "fatoldsun");
-            stmt.setString(4, "saeed");
-            stmt.setString(5, "zakipour");
+            while (result.next())
+            {
+                Outbound outbound = new Outbound();
+                outbound.setId(result.getLong("id"));
+                outbound.setUsername(result.getString("username"));
+                outbound.setPassword(result.getString("password"));
+                outbound.setName(result.getString("name"));
+                outbound.setFamily(result.getString("family"));
+                list.add(outbound);
+
+            }
 
 
-            stmt.executeUpdate();
             cnn.close();
 
         } catch (SQLException e) {
 
-            logger.fatal(e);
+            logger.error(e);
             if (cnn != null)
                 try {
                     cnn.close();
                 } catch (SQLException e1) {
 
                     e1.printStackTrace();
-                    logger.fatal(e1);
+                    logger.error(e1);
                 }
             e.printStackTrace();
         } finally {
@@ -58,14 +83,14 @@ public class OutboundDAOImpl implements OutboundDAO {
                     cnn.close();
             } catch (SQLException se)
             {
-                logger.fatal(se);
+                logger.error(se);
                 se.printStackTrace();
             }
 
         }
 
 
-        return null;
+        return  list;
     }
 
 

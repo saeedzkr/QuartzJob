@@ -12,7 +12,7 @@ import java.util.Properties;
  * Created by s.zakipour on 02/27/2016.
  */
 public class OutboundConnection implements TaminConnection {
-    final Logger logger = Logger.getLogger("JobLogger");
+    static final Logger logger = Logger.getLogger("JobLogger");
 
 
     private Properties properties;
